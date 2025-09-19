@@ -75,7 +75,7 @@
             margin-top: 10px;
         }
         
-        .user-card, .stat-card, .progress-container, .referral-section, .rate-info, .withdraw-section, .ad-status, .website-card {
+        .user-card, .stat-card, .progress-container, .direct-link-section, .rate-info, .withdraw-section, .ad-status, .website-card, .task-card {
             background-color: var(--card-bg);
             margin: 15px;
             padding: 15px;
@@ -243,44 +243,13 @@
             color: var(--secondary-color);
         }
         
-        .referral-stats {
+        .direct-link-stats {
             display: flex;
             justify-content: space-between;
             background-color: rgba(0, 0, 0, 0.2);
             padding: 10px 15px;
             border-radius: 8px;
             margin-bottom: 15px;
-        }
-        
-        .referral-link-container {
-            display: flex;
-            margin-top: 15px;
-        }
-        
-        #referral-link {
-            flex: 1;
-            padding: 12px;
-            background-color: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px 0 0 8px;
-            color: var(--text-color);
-            font-size: 14px;
-            outline: none;
-        }
-        
-        #copy-referral {
-            padding: 0 15px;
-            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
-            border: none;
-            border-radius: 0 8px 8px 0;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        #copy-referral:hover {
-            opacity: 0.9;
         }
         
         .withdraw-section { 
@@ -468,23 +437,23 @@
         }
         
         /* ওয়েবসাইট ভিজিট কার্ড স্টাইল */
-        .website-card {
+        .website-card, .task-card {
             margin-bottom: 15px;
         }
         
-        .website-card h3 {
+        .website-card h3, .task-card h3 {
             font-size: 16px;
             margin-bottom: 10px;
             color: white;
         }
         
-        .website-card p {
+        .website-card p, .task-card p {
             font-size: 14px;
             color: var(--text-muted);
             margin-bottom: 15px;
         }
         
-        .website-card .reward {
+        .website-card .reward, .task-card .reward {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
@@ -492,7 +461,7 @@
             color: var(--success-color);
         }
         
-        .website-card .reward i {
+        .website-card .reward i, .task-card .reward i {
             margin-right: 5px;
         }
         
@@ -523,12 +492,77 @@
             margin-bottom: 15px;
         }
         
+        .direct-link-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .direct-link-info {
+            flex: 1;
+        }
+        
+        .direct-link-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .direct-link-url {
+            font-size: 12px;
+            color: var(--text-muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 200px;
+        }
+        
+        .cooldown-timer {
+            font-size: 12px;
+            color: var(--warning-color);
+            margin-top: 5px;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 193, 7, 0.2);
+            border-left: 4px solid var(--warning-color);
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-size: 13px;
+        }
+        
+        .telegram-channel-list {
+            list-style-type: none;
+            margin: 15px 0;
+        }
+        
+        .telegram-channel-list li {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        
+        .telegram-channel-list a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .telegram-channel-list a:hover {
+            text-decoration: underline;
+        }
+        
         @media (max-width: 400px) {
             .header h1 { font-size: 20px; }
             .stats-container { grid-template-columns: 1fr; }
             .btn { padding: 12px; font-size: 14px; }
             .nav-item { font-size: 10px; padding: 5px; }
             .nav-item i { font-size: 18px; }
+            .direct-link-url { max-width: 150px; }
         }
     </style>
 </head>
@@ -626,23 +660,22 @@
                 </center>
             </div>
             
-            <div class="referral-section">
-                <h3 class="section-title"><i class="fas fa-users"></i> বন্ধুকে আমন্ত্রণ করুন</h3>
-                <div class="referral-stats">
-                    <div>আমন্ত্রিত: <strong id="referral-count">0</strong></div>
-                    <div>আয়: <strong id="referral-earnings">0.00</strong> টাকা</div>
+            <div class="direct-link-section">
+                <h3 class="section-title"><i class="fas fa-link"></i> ডাইরেক্ট লিংক</h3>
+                <div class="direct-link-stats">
+                    <div>আজ ক্লিক: <strong id="today-clicks">0</strong></div>
+                    <div>আয়: <strong id="click-earnings">0.00</strong> টাকা</div>
                 </div>
-                <p style="font-size: 14px; margin-bottom: 10px;">আপনার রেফারেল লিঙ্ক শেয়ার করুন এবং প্রতিটি বন্ধুর জন্য ৫ টাকা বোনাস পান!</p>
-                <div class="referral-link-container">
-                    <input type="text" id="referral-link" readonly>
-                    <button id="copy-referral" onclick="copyReferralLink()">কপি</button>
+                <p style="font-size: 14px; margin-bottom: 10px;">নিচের লিংকগুলো ভিজিট করুন এবং প্রতিটিতে ১ টাকা করে আয় করুন</p>
+                <div id="direct-links-container">
+                    <!-- ডাইরেক্ট লিংকগুলো JavaScript দিয়ে যোগ করা হবে -->
                 </div>
             </div>
             
             <div class="rate-info">
                 <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = ২ টাকা</p>
                 <p><i class="fas fa-money-bill-wave"></i> ন্যূনতম উত্তোলন: ২০ টাকা</p>
-                <p><i class="fas fa-gift"></i> রেফারেল বোনাস: ৫ টাকা প্রতি ব্যবহারকারী</p>
+                <p><i class="fas fa-link"></i> প্রতি ডাইরেক্ট লিংক = ১ টাকা</p>
             </div>
         </div>
         
@@ -662,22 +695,21 @@
                 </button>
             </div>
             
-            <div class="referral-section">
-                <h3 class="section-title"><i class="fas fa-users"></i> বন্ধুকে আমন্ত্রণ করুন</h3>
-                <div class="referral-stats">
-                    <div>আমন্ত্রিত: <strong id="referral-count-earn">0</strong></div>
-                    <div>আয়: <strong id="referral-earnings-earn">0.00</strong> টাকা</div>
+            <div class="direct-link-section">
+                <h3 class="section-title"><i class="fas fa-link"></i> ডাইরেক্ট লিংক</h3>
+                <div class="direct-link-stats">
+                    <div>আজ ক্লিক: <strong id="today-clicks-earn">0</strong></div>
+                    <div>আয়: <strong id="click-earnings-earn">0.00</strong> টাকা</div>
                 </div>
-                <p style="font-size: 14px; margin-bottom: 10px;">আপনার রেফারেল লিঙ্ক শেয়ার করুন এবং প্রতিটি বন্ধুর জন্য ৫ টাকা বোনাস পান!</p>
-                <div class="referral-link-container">
-                    <input type="text" id="referral-link-earn" readonly>
-                    <button id="copy-referral-earn" onclick="copyReferralLink()">কপি</button>
+                <p style="font-size: 14px; margin-bottom: 10px;">নিচের লিংকগুলো ভিজিট করুন এবং প্রতিটিতে ১ টাকা করে আয় করুন</p>
+                <div id="direct-links-container-earn">
+                    <!-- ডাইরেক্ট লিংকগুলো JavaScript দিয়ে যোগ করা হবে -->
                 </div>
             </div>
             
             <div class="rate-info">
                 <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = ২ টাকা</p>
-                <p><i class="fas fa-gift"></i> রেফারেল বোনাস: ৫ টাকা প্রতি ব্যবহারকারী</p>
+                <p><i class="fas fa-link"></i> প্রতি ডাইরেক্ট লিংক = ১ টাকা</p>
             </div>
         </div>
         
@@ -747,7 +779,7 @@
             
             <div class="website-card">
                 <h3>সাদিয়া পোস্ট - ব্লগ পোস্ট ২</h3>
-                <p>এই ব্লগ পোস্টটি পড়ুন এবং ২০ সেকেন্ড পর ফিরে এসে ১.৫ টাকা পুরস্কার পান।</p>
+                <p>এই ব্লグ পোস্টটি পড়ুন এবং ২০ সেকেন্ড পর ফিরে এসে ১.৫ টাকা পুরস্কার পান।</p>
                 <div class="reward">
                     <i class="fas fa-coins"></i> পুরস্কার: ১.৫ টাকা
                 </div>
@@ -762,22 +794,22 @@
             
             <div class="website-card">
                 <h3>সাদিয়া পোস্ট - হোম পেজ</h3>
-                <p>এই ব্লগ পোস্টটি পড়ুন এবং ২০ সেকেন্ড পর ফিরে এসে ১.৫ টাকা পুরস্কার পান।</p>
+                <p>এই ব্লগ পোস্টটি পড়ুন এবং ২০ সেকেন্ড পর ফিরে এসে ১.５ টাকা পুরস্কার পান।</p>
                 <div class="reward">
-                    <i class="fas fa-coins"></i> পুরস্কার: ১.৫ টাকা
+                    <i class="fas fa-coins"></i> পুরস্কার: １.５ টাকা
                 </div>
                 <button class="btn btn-primary" onclick="visitWebsite('https://sadiyapost.blogspot.com/')">
                     <i class="fas fa-external-link-alt"></i> ওয়েবসাইট ভিজিট করুন
                 </button>
                 <div class="timer-container" id="timer-3">
-                    <div class="timer" id="countdown-3">২০</div>
+                    <div class="timer" id="countdown-3">２０</div>
                     <div class="timer-message">সেকেন্ড পরে ফিরে আসুন এবং পুরস্কার পান</div>
                 </div>
             </div>
             
             <div class="website-card">
-                <h3>সাদিয়া পোস্ট - ব্লগ পোস্ট ৩</h3>
-                <p>এই ব্লগ পোস্টটি পড়ুন এবং ২০ সেকেন্ড পর ফিরে এসে １.５ টাকা পুরস্কার পান।</p>
+                <h3>সাদিয়া পোস্ট - ব্লগ পোস্ট ３</h3>
+                <p>এই ব্লগ পোস্টটি পড়ুন এবং ২০ সেকেন্ড পর ফিরে এসে １.５ টাকা পুরস্কার পান。</p>
                 <div class="reward">
                     <i class="fas fa-coins"></i> পুরস্কার: １.５ টাকা
                 </div>
@@ -785,7 +817,7 @@
                     <i class="fas fa-external-link-alt"></i> ওয়েবসাইট ভিজিট করুন
                 </button>
                 <div class="timer-container" id="timer-4">
-                    <div class="timer" id="countdown-4">২০</div>
+                    <div class="timer" id="countdown-4">２０</div>
                     <div class="timer-message">সেকেন্ড পরে ফিরে আসুন এবং পুরস্কার পান</div>
                 </div>
             </div>
@@ -793,6 +825,31 @@
             <div class="rate-info">
                 <p><i class="fas fa-info-circle"></i> নির্দেশনা: ওয়েবসাইট ভিজিট করে ২০ সেকেন্ড পর ফিরে আসুন এবং পুরস্কার পান</p>
                 <p><i class="fas fa-coins"></i> প্রতি ওয়েবসাইট ভিজিট = １.５ টাকা</p>
+            </div>
+        </div>
+        
+        <!-- টাস্ক পেজ -->
+        <div class="page-section" id="task-page">
+            <h3 class="section-title"><i class="fas fa-tasks"></i> টাস্ক সম্পন্ন করুন</h3>
+            
+            <div class="task-card">
+                <h3><i class="fab fa-telegram"></i> টেলিগ্রাম চ্যানেলে জয়েন করুন</h3>
+                <p>নিচের টেলিগ্রাম চ্যানেলগুলোতে জয়েন করুন। আমাদের চ্যানেলের লিংকগুলো ১২ ঘন্টা পরপর পরিবর্তন করা হয়, তাই নিয়মিত চেক করুন।</p>
+                
+                <div class="warning-box">
+                    <i class="fas fa-exclamation-triangle"></i> টেলিগ্রাম চ্যানেলে জয়েন না থাকলে আপনাকে পেমেন্ট করা হবে না।
+                </div>
+                
+                <ul class="telegram-channel-list">
+                    <li><a href="https://t.me/TASKSOIVEMONEY" target="_blank">TASKSOIVEMONEY</a></li>
+                    <li><a href="https://t.me/TradeXplorer" target="_blank">TradeXplorer</a></li>
+                    <li><a href="https://t.me/adsincomehridoy" target="_blank">Ads Income Hridoy</a></li>
+                    <li><a href="https://t.me/kakaPremium" target="_blank">Kaka Premium</a></li>
+                    <li><a href="https://t.me/uniquechacchu_2" target="_blank">Unique Chacchu</a></li>
+                    <li><a href="https://t.me/AiDadaji" target="_blank">AI Dadaji</a></li>
+                </ul>
+                
+                <p class="cooldown-timer">লিংক পরিবর্তন: <span id="link-change-timer">১২:০০:০০</span></p>
             </div>
         </div>
         
@@ -808,9 +865,9 @@
                 </div>
                 
                 <div class="stat-card">
-                    <h3><i class="fas fa-gift"></i> বিশেষ অফার</h3>
-                    <p>এই সপ্তাহে অতিরিক্ত ১০% বোনাস পেতে আপনার বন্ধুদের আমন্ত্রণ করুন。</p>
-                    <small>৫ দিন আগে</small>
+                    <h3><i class="fas fa-link"></i> নতুন ফিচার</h3>
+                    <p>ডাইরেক্ট লিংক ক্লিক সিস্টেম চালু হয়েছে। এখন থেকে লিংক ক্লিক করে অতিরিক্ত টাকা আয় করুন।</p>
+                    <small>আজ</small>
                 </div>
                 
                 <div class="stat-card">
@@ -846,13 +903,13 @@
             <i class="fas fa-globe"></i>
             <span>ভিজিট</span>
         </a>
+        <a href="#" class="nav-item" onclick="showPage('task-page', this)">
+            <i class="fas fa-tasks"></i>
+            <span>টাস্ক</span>
+        </a>
         <a href="#" class="nav-item" onclick="showPage('withdraw-page', this)">
             <i class="fas fa-wallet"></i>
             <span>উত্তোলন</span>
-        </a>
-        <a href="#" class="nav-item" onclick="showPage('notice-page', this)">
-            <i class="fas fa-bell"></i>
-            <span>নোটিশ</span>
         </a>
     </div>
 
@@ -865,19 +922,30 @@
         // Constants
         const POINTS_PER_AD = 2.00; // প্রতি বিজ্ঞাপনে ২ টাকা
         const POINTS_PER_VISIT = 1.50; // প্রতি ওয়েবসাইট ভিজিটে ১.৫ টাকা
+        const POINTS_PER_CLICK = 1.00; // প্রতি ডাইরেক্ট লিংক ক্লিকে ১ টাকা
         const MIN_WITHDRAW_TAKA = 20; // ন্যূনতম উত্তোলন ২০ টাকা
-        const REFERRAL_BONUS = 5.00; // রেফারেল বোনাস ৫ টাকা
         const VISIT_TIME_REQUIRED = 20; // ২০ সেকেন্ড ভিজিট প্রয়োজন
+        const DIRECT_LINK_COOLDOWN = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
         
-        // Telegram Bot Configuration - এখানে আপনার বটের তথ্য দিন
-        const BOT_TOKEN = "7987524748:AAHmv52bPWjGpWLzvexVBGZ6P5vACjInNzE"; // আপনার বট টোকেন
-        const ADMIN_CHAT_ID = "7011834885"; // আপনার টেলিগ্রাম চ্যাট আইডি
+        // Telegram Bot Configuration
+        const BOT_TOKEN = "7987524748:AAHmv52bPWjGpWLzvexVBGZ6P5vACjInNzE";
+        const ADMIN_CHAT_ID = "7011834885";
+        
+        // Direct Links
+        const DIRECT_LINKS = [
+            { id: 1, name: "Direct Link 1", url: "https://otieu.com/4/9901322" },
+            { id: 2, name: "Direct Link 2", url: "https://otieu.com/4/9901321" },
+            { id: 3, name: "Direct Link 3", url: "https://otieu.com/4/9901320" },
+            { id: 4, name: "Direct Link 4", url: "https://otieu.com/4/9317993" },
+            { id: 5, name: "Direct Link 5", url: "https://otieu.com/4/9140275" },
+            { id: 6, name: "Direct Link 6", url: "https://hourspaltrypointed.com/mnes2muij?key=9a12792eb983adfde924bab839f9167d" },
+            { id: 7, name: "Direct Link 7", url: "https://hourspaltrypointed.com/g9dw9fcud?key=84ffde840757098ed6762fd3ead4930d" },
+            { id: 8, name: "Direct Link 8", url: "https://hourspaltrypointed.com/gcwdw20yj?key=fe33935bc9b20e0835c7c0234ccc41ab" }
+        ];
         
         // Variables
         let watchedAdsCount = 0;
         let earnedPoints = 0.00;
-        let referralCount = 0;
-        let referralEarnings = 0.00;
         let userId = generateUserId();
         let autoAdInterval;
         let isAutoMode = false;
@@ -890,12 +958,16 @@
         let activeVisitTimer = null;
         let currentVisitUrl = null;
         let currentVisitTimerId = null;
+        
+        // ডাইরেক্ট লিংক সম্পর্কিত ভেরিয়েবল
+        let clickedLinks = 0;
+        let todayClicks = 0;
+        let clickEarnings = 0.00;
+        let linkCooldownTime = DIRECT_LINK_COOLDOWN;
+        let linkChangeCooldown = 12 * 60 * 60 * 1000; // 12 hours in milliseconds
 
         // Initialize the app
         function initApp() {
-            // Check for referral in URL
-            checkReferral();
-            
             // Set user info
             document.getElementById('user-id').textContent = userId;
             document.getElementById('user-avatar').textContent = userId.charAt(0).toUpperCase();
@@ -905,8 +977,12 @@
             updateUI();
             checkAdReady();
             
-            // Generate referral link
-            generateReferralLink();
+            // ডাইরেক্ট লিংক লোড করুন
+            loadDirectLinks();
+            loadDirectLinksEarnPage();
+            
+            // টাইমার শুরু করুন
+            startTimers();
             
             // Check for pending visit rewards
             checkPendingVisitRewards();
@@ -932,14 +1008,13 @@
             
             // উত্তোলন পেজে গেলে মোট আয় আপডেট করুন
             if (pageId === 'withdraw-page') {
-                document.getElementById('total-earned-withdraw').textContent = (earnedPoints + referralEarnings + visitEarnings).toFixed(2);
+                document.getElementById('total-earned-withdraw').textContent = (earnedPoints + visitEarnings + clickEarnings).toFixed(2);
             }
             
             // আর্ন পেজে গেলে ডেটা আপডেট করুন
             if (pageId === 'earn-page') {
-                document.getElementById('referral-count-earn').textContent = referralCount;
-                document.getElementById('referral-earnings-earn').textContent = referralEarnings.toFixed(2);
-                document.getElementById('referral-link-earn').value = document.getElementById('referral-link').value;
+                document.getElementById('today-clicks-earn').textContent = todayClicks;
+                document.getElementById('click-earnings-earn').textContent = clickEarnings.toFixed(2);
             }
             
             // ভিজিট পেজে গেলে ডেটা আপডেট করুন
@@ -959,52 +1034,6 @@
             const newId = Math.floor(100000 + Math.random() * 900000);
             localStorage.setItem('userId', newId.toString());
             return newId.toString();
-        }
-
-        // Check if there's a referral in URL
-        function checkReferral() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const referrerId = urlParams.get('ref');
-            
-            if (referrerId && referrerId !== userId) {
-                // Check if this is first visit and not already referred
-                if (!localStorage.getItem('referredBy')) {
-                    localStorage.setItem('referredBy', referrerId);
-                    showNotification('আপনি একটি রেফারেল লিঙ্ক ব্যবহার করে যোগদান করেছেন! রেফারার ৫ টাকা বোনাস পাবেন।', 'success');
-                    
-                    // In a real app, you would send this to your backend
-                    setTimeout(() => {
-                        console.log(`User ${referrerId} should get referral bonus`);
-                    }, 1000);
-                }
-            }
-        }
-
-        // Generate referral link
-        function generateReferralLink() {
-            const currentUrl = window.location.href.split('?')[0];
-            const referralLink = `${currentUrl}?ref=${userId}`;
-            document.getElementById('referral-link').value = referralLink;
-        }
-
-        // Copy referral link to clipboard
-        function copyReferralLink() {
-            const referralLink = document.getElementById('referral-link');
-            referralLink.select();
-            document.execCommand('copy');
-            
-            // Show copied message
-            const copyBtn = document.getElementById('copy-referral');
-            const originalText = copyBtn.textContent;
-            copyBtn.textContent = 'কপি হয়েছে!';
-            copyBtn.style.background = 'var(--success-color)';
-            
-            showNotification('রেফারেল লিঙ্ক কপি করা হয়েছে!', 'success');
-            
-            setTimeout(() => {
-                copyBtn.textContent = originalText;
-                copyBtn.style.background = 'linear-gradient(to right, var(--primary-color), var(--secondary-color))';
-            }, 2000);
         }
 
         // Check if Monetag ad is ready
@@ -1027,14 +1056,6 @@
                 earnedPoints = parseFloat(localStorage.getItem('earnedPoints'));
             }
             
-            if (localStorage.getItem('referralCount')) {
-                referralCount = parseInt(localStorage.getItem('referralCount'));
-            }
-            
-            if (localStorage.getItem('referralEarnings')) {
-                referralEarnings = parseFloat(localStorage.getItem('referralEarnings'));
-            }
-            
             if (localStorage.getItem('visitedWebsites')) {
                 visitedWebsites = parseInt(localStorage.getItem('visitedWebsites'));
             }
@@ -1047,34 +1068,57 @@
                 visitEarnings = parseFloat(localStorage.getItem('visitEarnings'));
             }
             
-            // Reset daily visits if it's a new day
+            if (localStorage.getItem('clickedLinks')) {
+                clickedLinks = parseInt(localStorage.getItem('clickedLinks'));
+            }
+            
+            if (localStorage.getItem('todayClicks')) {
+                todayClicks = parseInt(localStorage.getItem('todayClicks'));
+            }
+            
+            if (localStorage.getItem('clickEarnings')) {
+                clickEarnings = parseFloat(localStorage.getItem('clickEarnings'));
+            }
+            
+            // Reset daily visits and clicks if it's a new day
             const lastVisitDate = localStorage.getItem('lastVisitDate');
             const today = new Date().toDateString();
             
             if (lastVisitDate !== today) {
                 visitedWebsites = 0;
+                todayClicks = 0;
                 localStorage.setItem('lastVisitDate', today);
                 localStorage.setItem('visitedWebsites', visitedWebsites);
+                localStorage.setItem('todayClicks', todayClicks);
             }
+            
+            // Load link click times
+            DIRECT_LINKS.forEach(link => {
+                const clickTime = localStorage.getItem(`link_${link.id}_clicked`);
+                if (clickTime) {
+                    link.lastClicked = parseInt(clickTime);
+                }
+            });
         }
 
         // Save user data to localStorage
         function saveUserData() {
             localStorage.setItem('watchedAdsCount', watchedAdsCount);
             localStorage.setItem('earnedPoints', earnedPoints.toFixed(2));
-            localStorage.setItem('referralCount', referralCount);
-            localStorage.setItem('referralEarnings', referralEarnings.toFixed(2));
             localStorage.setItem('visitedWebsites', visitedWebsites);
             localStorage.setItem('totalVisits', totalVisits);
             localStorage.setItem('visitEarnings', visitEarnings.toFixed(2));
+            localStorage.setItem('clickedLinks', clickedLinks);
+            localStorage.setItem('todayClicks', todayClicks);
+            localStorage.setItem('clickEarnings', clickEarnings.toFixed(2));
         }
 
         // Update all UI elements
         function updateUI() {
             document.getElementById('watched-ads').textContent = watchedAdsCount;
-            document.getElementById('earned-money').textContent = (earnedPoints + referralEarnings + visitEarnings).toFixed(2);
-            document.getElementById('referral-count').textContent = referralCount;
-            document.getElementById('referral-earnings').textContent = referralEarnings.toFixed(2);
+            document.getElementById('earned-money').textContent = (earnedPoints + visitEarnings + clickEarnings).toFixed(2);
+            document.getElementById('today-clicks').textContent = todayClicks;
+            document.getElementById('click-earnings').textContent = clickEarnings.toFixed(2);
             document.getElementById('today-visits').textContent = visitedWebsites;
             document.getElementById('total-visits').textContent = totalVisits;
             document.getElementById('visit-earnings').textContent = visitEarnings.toFixed(2);
@@ -1083,7 +1127,7 @@
 
         // Update progress bar and text
         function updateProgress() {
-            const totalEarnings = earnedPoints + referralEarnings + visitEarnings;
+            const totalEarnings = earnedPoints + visitEarnings + clickEarnings;
             const progressPercent = (totalEarnings / MIN_WITHDRAW_TAKA) * 100;
             
             document.getElementById('progress-fill').style.width = `${Math.min(progressPercent, 100)}%`;
@@ -1119,10 +1163,10 @@
                     createCoinAnimation();
                     
                     // Show success notification
-                    showNotification(`২ টাকা যোগ হয়েছে! আপনার ব্যালেন্স: ${(earnedPoints + referralEarnings + visitEarnings).toFixed(2)} টাকা`, 'success');
+                    showNotification(`২ টাকা যোগ হয়েছে! আপনার ব্যালেন্স: ${(earnedPoints + visitEarnings + clickEarnings).toFixed(2)} টাকা`, 'success');
                     
                     // Check if earned enough for withdrawal
-                    if (earnedPoints + referralEarnings + visitEarnings >= MIN_WITHDRAW_TAKA) {
+                    if (earnedPoints + visitEarnings + clickEarnings >= MIN_WITHDRAW_TAKA) {
                         showNotification(`অভিনন্দন! আপনি উত্তোলনের জন্য ${MIN_WITHDRAW_TAKA} টাকা সংগ্রহ করেছেন।`, 'info');
                     }
                     
@@ -1207,9 +1251,9 @@
         // Show withdraw form
         function showWithdrawForm() {
             // উত্তোলন পেজ দেখান
-            showPage('withdraw-page', document.querySelector('.nav-item:nth-child(4)'));
+            showPage('withdraw-page', document.querySelector('.nav-item:nth-child(5)'));
             
-            const totalEarnings = earnedPoints + referralEarnings + visitEarnings;
+            const totalEarnings = earnedPoints + visitEarnings + clickEarnings;
             
             if (totalEarnings < MIN_WITHDRAW_TAKA) {
                 document.getElementById('withdraw-status').textContent = 
@@ -1233,7 +1277,7 @@
             const amount = parseFloat(document.getElementById('withdraw-amount').value);
             const paymentMethod = document.getElementById('payment-method').value;
             const phoneNumber = document.getElementById('withdraw-phone').value;
-            const totalEarnings = earnedPoints + referralEarnings + visitEarnings;
+            const totalEarnings = earnedPoints + visitEarnings + clickEarnings;
             const withdrawStatus = document.getElementById('withdraw-status');
             
             // Validate inputs
@@ -1270,16 +1314,16 @@
             // Calculate points to deduct
             let remainingAmount = amount;
             
-            if (visitEarnings > 0) {
+            if (clickEarnings > 0) {
+                const clickDeduction = Math.min(clickEarnings, remainingAmount);
+                clickEarnings -= clickDeduction;
+                remainingAmount -= clickDeduction;
+            }
+            
+            if (visitEarnings > 0 && remainingAmount > 0) {
                 const visitDeduction = Math.min(visitEarnings, remainingAmount);
                 visitEarnings -= visitDeduction;
                 remainingAmount -= visitDeduction;
-            }
-            
-            if (referralEarnings > 0 && remainingAmount > 0) {
-                const referralDeduction = Math.min(referralEarnings, remainingAmount);
-                referralEarnings -= referralDeduction;
-                remainingAmount -= referralDeduction;
             }
             
             if (remainingAmount > 0) {
@@ -1299,7 +1343,7 @@
                              `📞 ফোন: ${phoneNumber}\n\n` +
                              `📊 দেখা বিজ্ঞাপন: ${watchedAdsCount}\n` +
                              `🌐 ভিজিট করা ওয়েবসাইট: ${totalVisits}\n` +
-                             `👥 আমন্ত্রিত: ${referralCount}\n` +
+                             `🔗 ক্লিক করা লিংক: ${clickedLinks}\n` +
                              `💵 মোট আয়: ${totalEarnings.toFixed(2)} টাকা`;
             
             // Send to admin via Telegram
@@ -1417,10 +1461,10 @@
             // কয়েন অ্যানিমেশন দেখান
             createCoinAnimation();
             
-            showNotification(`১.৫ টাকা যোগ হয়েছে! ওয়েবসাইট ভিজিট সম্পূর্ণ। আপনার ব্যালেন্স: ${(earnedPoints + referralEarnings + visitEarnings).toFixed(2)} টাকা`, 'success');
+            showNotification(`১.৫ টাকা যোগ হয়েছে! ওয়েবসাইট ভিজিট সম্পূর্ণ। আপনার ব্যালেন্স: ${(earnedPoints + visitEarnings + clickEarnings).toFixed(2)} টাকা`, 'success');
             
             // উত্তোলনের জন্য পর্যাপ্ত টাকা হলে নোটিফিকেশন
-            if (earnedPoints + referralEarnings + visitEarnings >= MIN_WITHDRAW_TAKA) {
+            if (earnedPoints + visitEarnings + clickEarnings >= MIN_WITHDRAW_TAKA) {
                 showNotification(`অভিনন্দন! আপনি উত্তোলনের জন্য ${MIN_WITHDRAW_TAKA} টাকা সংগ্রহ করেছেন।`, 'info');
             }
         }
@@ -1438,6 +1482,127 @@
                     localStorage.removeItem('pendingVisit');
                 }
             }
+        }
+
+        // ডাইরেক্ট লিংক লোড করুন
+        function loadDirectLinks() {
+            const container = document.getElementById('direct-links-container');
+            container.innerHTML = '';
+            
+            DIRECT_LINKS.forEach(link => {
+                const lastClicked = localStorage.getItem(`link_${link.id}_clicked`);
+                const isCooldown = lastClicked && (Date.now() - parseInt(lastClicked)) < linkCooldownTime;
+                const cooldownRemaining = lastClicked ? Math.max(0, linkCooldownTime - (Date.now() - parseInt(lastClicked))) : 0;
+                
+                const linkElement = document.createElement('div');
+                linkElement.className = 'direct-link-item';
+                linkElement.innerHTML = `
+                    <div class="direct-link-info">
+                        <div class="direct-link-name">${link.name}</div>
+                        <div class="direct-link-url">${link.url}</div>
+                        ${isCooldown ? `<div class="cooldown-timer">কুলডাউন: ${formatTime(cooldownRemaining)}</div>` : ''}
+                    </div>
+                    <button class="btn btn-primary" onclick="clickDirectLink(${link.id})" ${isCooldown ? 'disabled' : ''}>
+                        ${isCooldown ? 'কুলডাউন' : 'ক্লিক করুন'}
+                    </button>
+                `;
+                
+                container.appendChild(linkElement);
+            });
+        }
+
+        // আর্ন পেজের জন্য ডাইরেক্ট লিংক লোড করুন
+        function loadDirectLinksEarnPage() {
+            const container = document.getElementById('direct-links-container-earn');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            
+            DIRECT_LINKS.forEach(link => {
+                const lastClicked = localStorage.getItem(`link_${link.id}_clicked`);
+                const isCooldown = lastClicked && (Date.now() - parseInt(lastClicked)) < linkCooldownTime;
+                const cooldownRemaining = lastClicked ? Math.max(0, linkCooldownTime - (Date.now() - parseInt(lastClicked))) : 0;
+                
+                const linkElement = document.createElement('div');
+                linkElement.className = 'direct-link-item';
+                linkElement.innerHTML = `
+                    <div class="direct-link-info">
+                        <div class="direct-link-name">${link.name}</div>
+                        <div class="direct-link-url">${link.url}</div>
+                        ${isCooldown ? `<div class="cooldown-timer">কুলডাউন: ${formatTime(cooldownRemaining)}</div>` : ''}
+                    </div>
+                    <button class="btn btn-primary" onclick="clickDirectLink(${link.id})" ${isCooldown ? 'disabled' : ''}>
+                        ${isCooldown ? 'কুলডাউন' : 'ক্লিক করুন'}
+                    </button>
+                `;
+                
+                container.appendChild(linkElement);
+            });
+        }
+
+        // ডাইরেক্ট লিংক ক্লিক করার ফাংশন
+        function clickDirectLink(linkId) {
+            const link = DIRECT_LINKS.find(l => l.id === linkId);
+            if (!link) return;
+            
+            // লিংক খুলুন
+            window.open(link.url, '_blank');
+            
+            // পুরস্কার দিন
+            clickedLinks++;
+            todayClicks++;
+            clickEarnings += POINTS_PER_CLICK;
+            
+            // ক্লিকের সময় সংরক্ষণ করুন
+            localStorage.setItem(`link_${linkId}_clicked`, Date.now().toString());
+            
+            saveUserData();
+            updateUI();
+            loadDirectLinks();
+            loadDirectLinksEarnPage();
+            
+            // কয়েন অ্যানিমেশন দেখান
+            createCoinAnimation();
+            
+            showNotification(`১ টাকা যোগ হয়েছে! লিংক ক্লিক সম্পূর্ণ। আপনার ব্যালেন্স: ${(earnedPoints + visitEarnings + clickEarnings).toFixed(2)} টাকা`, 'success');
+            
+            // উত্তোলনের জন্য পর্যাপ্ত টাকা হলে নোটিফিকেশন
+            if (earnedPoints + visitEarnings + clickEarnings >= MIN_WITHDRAW_TAKA) {
+                showNotification(`অভিনন্দন! আপনি উত্তোলনের জন্য ${MIN_WITHDRAW_TAKA} টাকা সংগ্রহ করেছেন।`, 'info');
+            }
+        }
+
+        // সময় ফরম্যাট করার ফাংশন
+        function formatTime(milliseconds) {
+            const hours = Math.floor(milliseconds / (1000 * 60 * 60));
+            const minutes = Math.floor((milliseconds % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((milliseconds % (1000 * 60)) / 1000);
+            
+            return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // টাইমার শুরু করুন
+        function startTimers() {
+            // লিংক কুলডাউন টাইমার
+            setInterval(() => {
+                loadDirectLinks();
+                loadDirectLinksEarnPage();
+            }, 1000);
+            
+            // লিংক পরিবর্তন টাইমার
+            setInterval(() => {
+                updateLinkChangeTimer();
+            }, 1000);
+        }
+
+        // লিংক পরিবর্তন টাইমার আপডেট করুন
+        function updateLinkChangeTimer() {
+            const now = new Date();
+            const nextChange = new Date(now);
+            nextChange.setHours(now.getHours() + 12 - (now.getHours() % 12), 0, 0, 0);
+            
+            const timeRemaining = nextChange - now;
+            document.getElementById('link-change-timer').textContent = formatTime(timeRemaining);
         }
 
         // Initialize the app when page loads
