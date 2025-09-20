@@ -75,7 +75,7 @@
             margin-top: 10px;
         }
         
-        .user-card, .stat-card, .progress-container, .direct-link-section, .rate-info, .withdraw-section, .ad-status, .website-card, .task-card {
+        .user-card, .stat-card, .progress-container, .direct-link-section, .rate-info, .withdraw-section, .ad-status, .website-card, .task-card, .bonus-card {
             background-color: var(--card-bg);
             margin: 15px;
             padding: 15px;
@@ -437,23 +437,23 @@
         }
         
         /* ওয়েবসাইট ভিজিট কার্ড স্টাইল */
-        .website-card, .task-card {
+        .website-card, .task-card, .bonus-card {
             margin-bottom: 15px;
         }
         
-        .website-card h3, .task-card h3 {
+        .website-card h3, .task-card h3, .bonus-card h3 {
             font-size: 16px;
             margin-bottom: 10px;
             color: white;
         }
         
-        .website-card p, .task-card p {
+        .website-card p, .task-card p, .bonus-card p {
             font-size: 14px;
             color: var(--text-muted);
             margin-bottom: 15px;
         }
         
-        .website-card .reward, .task-card .reward {
+        .website-card .reward, .task-card .reward, .bonus-card .reward {
             display: flex;
             align-items: center;
             margin-bottom: 15px;
@@ -461,7 +461,7 @@
             color: var(--success-color);
         }
         
-        .website-card .reward i, .task-card .reward i {
+        .website-card .reward i, .task-card .reward i, .bonus-card .reward i {
             margin-right: 5px;
         }
         
@@ -602,8 +602,8 @@
             
             <div class="stats-container">
                 <div class="stat-card">
-                    <h3>দেখা বিজ্ঞাপন</h3>
-                    <p id="watched-ads">0</p>
+                    <h3>পয়েন্ট</h3>
+                    <p id="user-points">0</p>
                 </div>
                 <div class="stat-card">
                     <h3>আয়কৃত টাকা</h3>
@@ -614,14 +614,14 @@
             <div class="progress-container">
                 <div class="progress-header">
                     <h3>আজকের অগ্রগতি</h3>
-                    <span id="ads-progress">0/10</span>
+                    <span id="ads-progress">0/10 বিজ্ঞাপন</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progress-fill"></div>
                 </div>
                 <div class="progress-text">
                     <span>0 টাকা</span>
-                    <span>20 টাকা</span>
+                    <span>50 টাকা</span>
                 </div>
             </div>
             
@@ -631,7 +631,7 @@
             
             <div class="action-buttons">
                 <button class="btn btn-primary" id="watch-ad-btn" onclick="watchAd()">
-                    <i class="fas fa-play"></i> বিজ্ঞাপন দেখুন (২ টাকা)
+                    <i class="fas fa-play"></i> বিজ্ঞাপন দেখুন (10 পয়েন্ট)
                 </button>
                 <button class="btn btn-success" id="auto-ad-btn" onclick="startAutoAds()">
                     <i class="fas fa-robot"></i> স্বয়ংক্রিয় বিজ্ঞাপন
@@ -673,8 +673,8 @@
             </div>
             
             <div class="rate-info">
-                <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = ২ টাকা</p>
-                <p><i class="fas fa-money-bill-wave"></i> ন্যূনতম উত্তোলন: ২০ টাকা</p>
+                <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = 10 পয়েন্ট (10 বিজ্ঞাপন = 1 টাকা)</p>
+                <p><i class="fas fa-money-bill-wave"></i> ন্যূনতম উত্তোলন: ৫০ টাকা</p>
                 <p><i class="fas fa-link"></i> প্রতি ডাইরেক্ট লিংক = ১ টাকা</p>
             </div>
         </div>
@@ -685,7 +685,7 @@
             
             <div class="action-buttons">
                 <button class="btn btn-primary" id="watch-ad-btn-earn" onclick="watchAd()">
-                    <i class="fas fa-play"></i> বিজ্ঞাপন দেখুন (২ টাকা)
+                    <i class="fas fa-play"></i> বিজ্ঞাপন দেখুন (10 পয়েন্ট)
                 </button>
                 <button class="btn btn-success" id="auto-ad-btn-earn" onclick="startAutoAds()">
                     <i class="fas fa-robot"></i> স্বয়ংক্রিয় বিজ্ঞাপন
@@ -707,9 +707,25 @@
                 </div>
             </div>
             
+            <div class="bonus-card">
+                <h3 class="section-title"><i class="fas fa-gift"></i> ডেইলি বোনাস</h3>
+                <p>প্রতি ৩ দিন পরপর ৩ টাকা বোনাস পান। বোনাস নেওয়ার পর পরবর্তী বোনাসের জন্য ৩ দিন অপেক্ষা করুন।</p>
+                <div class="reward">
+                    <i class="fas fa-coins"></i> পুরস্কার: ৩ টাকা
+                </div>
+                <button class="btn btn-warning" id="daily-bonus-btn" onclick="claimDailyBonus()">
+                    <i class="fas fa-gift"></i> ডেইলি বোনাস নিন
+                </button>
+                <div id="bonus-timer-container" class="timer-container">
+                    <div class="timer" id="bonus-countdown">৭২:০০:০০</div>
+                    <div class="timer-message">পরবর্তী বোনাস পাওয়ার জন্য অপেক্ষা করুন</div>
+                </div>
+            </div>
+            
             <div class="rate-info">
-                <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = ২ টাকা</p>
+                <p><i class="fas fa-ad"></i> প্রতি বিজ্ঞাপন = 10 পয়েন্ট (10 বিজ্ঞাপন = 1 টাকা)</p>
                 <p><i class="fas fa-link"></i> প্রতি ডাইরেক্ট লিংক = ১ টাকা</p>
+                <p><i class="fas fa-gift"></i> ডেইলি বোনাস = ৩ টাকা (প্রতি ৩ দিন পরপর)</p>
             </div>
         </div>
         
@@ -725,7 +741,7 @@
             <div class="withdraw-section" id="withdraw-section">
                 <div class="form-group">
                     <label for="withdraw-amount">পরিমাণ (টাকা)</label>
-                    <input type="number" id="withdraw-amount" class="form-control" placeholder="টাকার পরিমাণ লিখুন" min="20">
+                    <input type="number" id="withdraw-amount" class="form-control" placeholder="টাকার পরিমাণ লিখুন" min="50">
                 </div>
                 <div class="form-group">
                     <label for="payment-method">পেমেন্ট মাধ্যম</label>
@@ -747,7 +763,7 @@
             </div>
             
             <div class="rate-info">
-                <p><i class="fas fa-money-bill-wave"></i> ন্যূনতম উত্তোলন: ২০ টাকা</p>
+                <p><i class="fas fa-money-bill-wave"></i> ন্যূনতম উত্তোলন: ৫০ টাকা</p>
                 <p><i class="fas fa-clock"></i> উত্তোলন প্রসেসিং সময়: ২৪-৪৮ ঘন্টা</p>
             </div>
         </div>
@@ -779,7 +795,7 @@
             
             <div class="website-card">
                 <h3>সাদিয়া পোস্ট - ব্লগ পোস্ট ২</h3>
-                <p>এই ব্লグ পোস্টটি পড়ুন এবং ২০ সেকেন্ড পর ফিরে এসে ১.৫ টাকা পুরস্কার পান।</p>
+                <p>এই ব্লগ পোস্টটি পড়ুন এবং ২০ সেকেন্ড পর ফিরে এসে ১.৫ টাকা পুরস্কার পান।</p>
                 <div class="reward">
                     <i class="fas fa-coins"></i> পুরস্কার: ১.৫ টাকা
                 </div>
@@ -811,7 +827,7 @@
                 <h3>সাদিয়া পোস্ট - ব্লগ পোস্ট ３</h3>
                 <p>এই ব্লগ পোস্টটি পড়ুন এবং ২০ সেকেন্ড পর ফিরে এসে １.５ টাকা পুরস্কার পান。</p>
                 <div class="reward">
-                    <i class="fas fa-coins"></i> পুরস্কার: １.５ টাকা
+                    <i class="fas fa-coins"></i> পুরস্কার: １.৫ টাকা
                 </div>
                 <button class="btn btn-primary" onclick="visitWebsite('https://sadiyapost.blogspot.com/2025/09/blog-post_17.html')">
                     <i class="fas fa-external-link-alt"></i> ওয়েবসাইট ভিজিট করুন
@@ -849,7 +865,7 @@
                     <li><a href="https://t.me/AiDadaji" target="_blank">AI Dadaji</a></li>
                 </ul>
                 
-                <p class="cooldown-timer">লিংক পরিবর্তন: <span id="link-change-timer">১২:০০:০০</span></p>
+                <p class="cooldown-timer">লিংক পরিবর্তন: <span id="link-change-timer">১২:০০:００</span></p>
             </div>
         </div>
         
@@ -872,13 +888,19 @@
                 
                 <div class="stat-card">
                     <h3><i class="fas fa-exclamation-triangle"></i> গুরুত্বপূর্ণ নোটিশ</h3>
-                    <p>উত্তোলনের জন্য ন্যূনতম ২০ টাকা প্রয়োজন। দয়া করে উত্তোলন করার আগে নিশ্চিত হয়ে নিন।</p>
+                    <p>উত্তোলনের জন্য ন্যূনতম ৫০ টাকা প্রয়োজন। দয়া করে উত্তোলন করার আগে নিশ্চিত হয়ে নিন।</p>
                     <small>১ সপ্তাহ আগে</small>
                 </div>
                 
                 <div class="stat-card">
                     <h3><i class="fas fa-globe"></i> নতুন ফিচার</h3>
                     <p>ওয়েবসাইট ভিজিট করে টাকা আয়ের নতুন অপশন যুক্ত করা হয়েছে। এখন থেকে ব্লগ পোস্ট ভিজিট করে অতিরিক্ত টাকা আয় করুন।</p>
+                    <small>আজ</small>
+                </div>
+                
+                <div class="stat-card">
+                    <h3><i class="fas fa-gift"></i> নতুন ফিচার</h3>
+                    <p>ডেইলি বোনাস সিস্টেম চালু হয়েছে। প্রতি ৩ দিন পরপর ৩ টাকা বোনাস পান।</p>
                     <small>আজ</small>
                 </div>
             </div>
@@ -920,10 +942,13 @@
 
     <script>
         // Constants
-        const POINTS_PER_AD = 2.00; // প্রতি বিজ্ঞাপনে ২ টাকা
+        const POINTS_PER_AD = 10; // প্রতি বিজ্ঞাপনে 10 পয়েন্ট
+        const POINTS_TO_TAKA_RATE = 100; // 100 পয়েন্ট = 1 টাকা
         const POINTS_PER_VISIT = 1.50; // প্রতি ওয়েবসাইট ভিজিটে ১.৫ টাকা
         const POINTS_PER_CLICK = 1.00; // প্রতি ডাইরেক্ট লিংক ক্লিকে ১ টাকা
-        const MIN_WITHDRAW_TAKA = 20; // ন্যূনতম উত্তোলন ২০ টাকা
+        const MIN_WITHDRAW_TAKA = 50; // ন্যূনতম উত্তোলন ৫০ টাকা
+        const DAILY_BONUS_AMOUNT = 3.00; // ডেইলি বোনাস ৩ টাকা
+        const BONUS_COOLDOWN = 3 * 24 * 60 * 60 * 1000; // 3 days in milliseconds
         const VISIT_TIME_REQUIRED = 20; // ২০ সেকেন্ড ভিজিট প্রয়োজন
         const DIRECT_LINK_COOLDOWN = 4 * 60 * 60 * 1000; // 4 hours in milliseconds
         
@@ -944,12 +969,17 @@
         ];
         
         // Variables
+        let userPoints = 0; // পয়েন্ট
+        let earnedPoints = 0.00; // টাকা (পয়েন্ট থেকে কনভার্ট করা)
         let watchedAdsCount = 0;
-        let earnedPoints = 0.00;
         let userId = generateUserId();
         let autoAdInterval;
         let isAutoMode = false;
         let isAdLoading = false;
+        
+        // ডেইলি বোনাস সম্পর্কিত ভেরিয়েবল
+        let lastBonusClaimTime = 0;
+        let bonusCooldownRemaining = 0;
         
         // ওয়েবসাইট ভিজিট সম্পর্কিত ভেরিয়েবল
         let visitedWebsites = 0;
@@ -986,6 +1016,9 @@
             
             // Check for pending visit rewards
             checkPendingVisitRewards();
+            
+            // বোনাস সিস্টেম চেক করুন
+            updateBonusButton();
         }
 
         // পেজ দেখানোর ফাংশন
@@ -1015,6 +1048,7 @@
             if (pageId === 'earn-page') {
                 document.getElementById('today-clicks-earn').textContent = todayClicks;
                 document.getElementById('click-earnings-earn').textContent = clickEarnings.toFixed(2);
+                updateBonusButton();
             }
             
             // ভিজিট পেজে গেলে ডেটা আপডেট করুন
@@ -1048,12 +1082,16 @@
 
         // Load user data from localStorage
         function loadUserData() {
-            if (localStorage.getItem('watchedAdsCount')) {
-                watchedAdsCount = parseInt(localStorage.getItem('watchedAdsCount'));
+            if (localStorage.getItem('userPoints')) {
+                userPoints = parseInt(localStorage.getItem('userPoints'));
             }
             
             if (localStorage.getItem('earnedPoints')) {
                 earnedPoints = parseFloat(localStorage.getItem('earnedPoints'));
+            }
+            
+            if (localStorage.getItem('watchedAdsCount')) {
+                watchedAdsCount = parseInt(localStorage.getItem('watchedAdsCount'));
             }
             
             if (localStorage.getItem('visitedWebsites')) {
@@ -1080,6 +1118,10 @@
                 clickEarnings = parseFloat(localStorage.getItem('clickEarnings'));
             }
             
+            if (localStorage.getItem('lastBonusClaimTime')) {
+                lastBonusClaimTime = parseInt(localStorage.getItem('lastBonusClaimTime'));
+            }
+            
             // Reset daily visits and clicks if it's a new day
             const lastVisitDate = localStorage.getItem('lastVisitDate');
             const today = new Date().toDateString();
@@ -1103,19 +1145,21 @@
 
         // Save user data to localStorage
         function saveUserData() {
-            localStorage.setItem('watchedAdsCount', watchedAdsCount);
+            localStorage.setItem('userPoints', userPoints);
             localStorage.setItem('earnedPoints', earnedPoints.toFixed(2));
+            localStorage.setItem('watchedAdsCount', watchedAdsCount);
             localStorage.setItem('visitedWebsites', visitedWebsites);
             localStorage.setItem('totalVisits', totalVisits);
             localStorage.setItem('visitEarnings', visitEarnings.toFixed(2));
             localStorage.setItem('clickedLinks', clickedLinks);
             localStorage.setItem('todayClicks', todayClicks);
             localStorage.setItem('clickEarnings', clickEarnings.toFixed(2));
+            localStorage.setItem('lastBonusClaimTime', lastBonusClaimTime);
         }
 
         // Update all UI elements
         function updateUI() {
-            document.getElementById('watched-ads').textContent = watchedAdsCount;
+            document.getElementById('user-points').textContent = userPoints;
             document.getElementById('earned-money').textContent = (earnedPoints + visitEarnings + clickEarnings).toFixed(2);
             document.getElementById('today-clicks').textContent = todayClicks;
             document.getElementById('click-earnings').textContent = clickEarnings.toFixed(2);
@@ -1131,7 +1175,7 @@
             const progressPercent = (totalEarnings / MIN_WITHDRAW_TAKA) * 100;
             
             document.getElementById('progress-fill').style.width = `${Math.min(progressPercent, 100)}%`;
-            document.getElementById('ads-progress').textContent = `${totalEarnings.toFixed(2)}/${MIN_WITHDRAW_TAKA} টাকা`;
+            document.getElementById('ads-progress').textContent = `${watchedAdsCount}/10 বিজ্ঞাপন`;
         }
 
         // Function to watch an ad and earn points
@@ -1153,7 +1197,14 @@
                 window.show_9472189().then(() => {
                     // Ad watched successfully
                     watchedAdsCount++;
-                    earnedPoints += POINTS_PER_AD;
+                    userPoints += POINTS_PER_AD;
+                    
+                    // Check if we have enough points to convert to Taka
+                    if (userPoints >= POINTS_TO_TAKA_RATE) {
+                        const takaEarned = Math.floor(userPoints / POINTS_TO_TAKA_RATE);
+                        earnedPoints += takaEarned;
+                        userPoints %= POINTS_TO_TAKA_RATE;
+                    }
                     
                     saveUserData();
                     updateUI();
@@ -1163,7 +1214,7 @@
                     createCoinAnimation();
                     
                     // Show success notification
-                    showNotification(`২ টাকা যোগ হয়েছে! আপনার ব্যালেন্স: ${(earnedPoints + visitEarnings + clickEarnings).toFixed(2)} টাকা`, 'success');
+                    showNotification(`${POINTS_PER_AD} পয়েন্ট যোগ হয়েছে! আপনার ব্যালেন্স: ${(earnedPoints + visitEarnings + clickEarnings).toFixed(2)} টাকা`, 'success');
                     
                     // Check if earned enough for withdrawal
                     if (earnedPoints + visitEarnings + clickEarnings >= MIN_WITHDRAW_TAKA) {
@@ -1581,6 +1632,59 @@
             return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
 
+        // ডেইলি বোনাস ক্লেইম ফাংশন
+        function claimDailyBonus() {
+            const now = Date.now();
+            
+            // যদি কুলডাউন সময় এখনও না হয়ে থাকে
+            if (lastBonusClaimTime > 0 && (now - lastBonusClaimTime) < BONUS_COOLDOWN) {
+                showNotification('আপনি ইতিমধ্যে বোনাস নিয়েছেন। পরবর্তী বোনাসের জন্য অপেক্ষা করুন।', 'error');
+                return;
+            }
+            
+            // বোনাস দিন
+            earnedPoints += DAILY_BONUS_AMOUNT;
+            lastBonusClaimTime = now;
+            
+            saveUserData();
+            updateUI();
+            updateBonusButton();
+            
+            // কয়েন অ্যানিমেশন দেখান
+            createCoinAnimation();
+            
+            showNotification(`৩ টাকা বোনাস যোগ হয়েছে! আপনার ব্যালেন্স: ${(earnedPoints + visitEarnings + clickEarnings).toFixed(2)} টাকা`, 'success');
+            
+            // উত্তোলনের জন্য পর্যাপ্ত টাকা হলে নোটিফিকেশন
+            if (earnedPoints + visitEarnings + clickEarnings >= MIN_WITHDRAW_TAKA) {
+                showNotification(`অভিনন্দন! আপনি উত্তোলনের জন্য ${MIN_WITHDRAW_TAKA} টাকা সংগ্রহ করেছেন।`, 'info');
+            }
+        }
+
+        // বোনাস বাটন আপডেট করুন
+        function updateBonusButton() {
+            const bonusButton = document.getElementById('daily-bonus-btn');
+            const bonusTimerContainer = document.getElementById('bonus-timer-container');
+            const bonusCountdown = document.getElementById('bonus-countdown');
+            
+            const now = Date.now();
+            const timeSinceLastBonus = lastBonusClaimTime > 0 ? now - lastBonusClaimTime : BONUS_COOLDOWN;
+            const cooldownRemaining = Math.max(0, BONUS_COOLDOWN - timeSinceLastBonus);
+            
+            if (cooldownRemaining > 0) {
+                // বোনাস নেওয়া হয়েছে, কুলডাউন চলছে
+                bonusButton.disabled = true;
+                bonusButton.textContent = 'বোনাস নেওয়া হয়েছে';
+                bonusTimerContainer.style.display = 'block';
+                bonusCountdown.textContent = formatTime(cooldownRemaining);
+            } else {
+                // বোনাস নেওয়ার জন্য প্রস্তুত
+                bonusButton.disabled = false;
+                bonusButton.innerHTML = '<i class="fas fa-gift"></i> ডেইলি বোনাস নিন';
+                bonusTimerContainer.style.display = 'none';
+            }
+        }
+
         // টাইমার শুরু করুন
         function startTimers() {
             // লিংক কুলডাউন টাইমার
@@ -1592,6 +1696,11 @@
             // লিংক পরিবর্তন টাইমার
             setInterval(() => {
                 updateLinkChangeTimer();
+            }, 1000);
+            
+            // বোনাস টাইমার
+            setInterval(() => {
+                updateBonusButton();
             }, 1000);
         }
 
